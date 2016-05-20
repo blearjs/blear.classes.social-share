@@ -15,7 +15,7 @@ describe('测试文件', function () {
         var ss = new SocialShare({
             maxDescLength: 11
         });
-        var img = 'http://usr.im/600x600';
+        var img = 'http://dummyimage.com/600x400';
         var imgEl = document.createElement('img');
 
         imgEl.src = img;
@@ -39,5 +39,5 @@ describe('测试文件', function () {
         if(imgEl.completed){
             ready();
         }
-    });
+    }, 40000);
 });
