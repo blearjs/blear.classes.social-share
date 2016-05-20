@@ -16,8 +16,11 @@
   "main": "src/index.js",
   "keywords": [
     "blear",
-    "core",
-    "querystring",
+    "classes",
+    "social-share",
+    "qq",
+    "weixin",
+    "weibo",
     "cloudcome",
     "ydr.me"
   ],
