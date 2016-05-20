@@ -18,12 +18,22 @@ var httpServer = function (req, res, next) {
 
 module.exports = function (config) {
     var browsers = [];
+    var reporters = ['progress', 'coverage'];
+    var coverageReporters = [{
+        type: 'text-summary'
+    }];
 
     if (TRAVIS) {
         browsers = ['Chrome_travis_ci'];
+        reporters.push('coveralls');
+        coverageReporters.push({
+            type: 'lcov',
+            dir: './coverage/'
+        });
     } else {
         browsers = ['Chrome'];
     }
+
 
     config.set({
 
@@ -86,12 +96,7 @@ module.exports = function (config) {
         // optionally, configure the reporter
         // 覆盖率报告
         coverageReporter: {
-            reporters: [{
-                type: 'text-summary'
-            }, {
-                type: 'lcov',
-                dir: './coverage/'
-            }]
+            reporters: coverageReporters
         },
 
 
@@ -99,7 +104,7 @@ module.exports = function (config) {
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
         // 报告类型
-        reporters: ['progress', 'coverage', 'coveralls'],
+        reporters: reporters,
 
 
         // web server port
