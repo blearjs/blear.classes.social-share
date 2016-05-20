@@ -1,7 +1,7 @@
 {
   "name": "blear.classes.social-share",
-  "version": "1.0.3",
-  "description": "location querystring",
+  "version": "1.0.4",
+  "description": "社会化分享类",
   "scripts": {
     "live": "browser-sync start --config bs-config.js",
     "test": "node ./node_modules/.bin/karma start karma.conf.js --single-run",

@@ -57,7 +57,7 @@ var SocialShare = Events.extend({
     constructor: function (options) {
         var the = this;
 
-        the.Super();
+        SocialShare.parent(the);
         the[_options] = object.assign(true, {}, defaults, options);
     },
 
