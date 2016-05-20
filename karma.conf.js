@@ -9,9 +9,6 @@
 
 
 var TRAVIS = process.env.TRAVIS;
-var COVERAGE = !TRAVIS;
-var SINGLE_RUN = process.argv.indexOf('--single-run') > -1;
-
 
 // http 服务器
 var httpServer = function (req, res, next) {
@@ -20,32 +17,12 @@ var httpServer = function (req, res, next) {
 
 
 module.exports = function (config) {
-    var preprocessors = {};
-    var reporters = ['progress'];
     var browsers = [];
-    var coverageReporters = [{
-        type: 'text-summary'
-    }];
-
-    if (COVERAGE) {
-        preprocessors = {
-            // 原始模块，需要测试覆盖率
-            './src/index.js': ['coverage']
-        };
-        reporters.push('coverage');
-    }
 
     if (TRAVIS) {
         browsers = ['Chrome_travis_ci'];
     } else {
         browsers = ['Chrome'];
-    }
-
-    if (!SINGLE_RUN) {
-        coverageReporters.push({
-            type: 'lcov',
-            dir: './coverage/'
-        });
     }
 
     config.set({
@@ -100,13 +77,21 @@ module.exports = function (config) {
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: preprocessors,
+        preprocessors: {
+            // 原始模块，需要测试覆盖率
+            './src/index.js': ['coverage']
+        },
 
 
         // optionally, configure the reporter
         // 覆盖率报告
         coverageReporter: {
-            reporters: coverageReporters
+            reporters: [{
+                type: 'text-summary'
+            }, {
+                type: 'lcov',
+                dir: './coverage/'
+            }]
         },
 
 
@@ -114,7 +99,7 @@ module.exports = function (config) {
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
         // 报告类型
-        reporters: reporters,
+        reporters: ['progress', 'coverage'],
 
 
         // web server port
