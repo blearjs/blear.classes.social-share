@@ -1,6 +1,6 @@
 {
   "name": "blear.classes.social-share",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "社会化分享类",
   "scripts": {
     "live": "browser-sync start --config bs-config.js",
@@ -44,6 +44,7 @@
     "blear.core.selector": "1.x",
     "blear.core.attribute": "1.x",
     "blear.utils.object": "1.x",
+    "blear.utils.url": "1.x",
     "blear.utils.querystring": "1.x"
   },
   "devDependencies": {

@@ -13,6 +13,7 @@ var selector =  require('blear.core.selector');
 var attribute = require('blear.core.attribute');
 var object =    require('blear.utils.object');
 var qs =        require('blear.utils.querystring');
+var url =       require('blear.utils.url');
 
 var win = window;
 var doc = win.document;
@@ -20,8 +21,6 @@ var location = win.location;
 var WEIBO_URL = 'http://v.t.sina.com.cn/share/share.php?';
 var QQ_FRIEND_URL = 'http://connect.qq.com/widget/shareqq/index.html?';
 var QQ_ZONE_URL = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?';
-// @see http://www.topscan.com/pingtai/
-var QR_CODE_URL = 'http://qr.topscan.com/api.php?';
 var TIEBA_URL = 'http://tieba.baidu.com/f/commit/share/openShareApi?';
 var defaults = {
     title: '',
@@ -29,27 +28,7 @@ var defaults = {
     img: '',
     link: '',
     minImgSize: 200,
-    maxDescLength: 0,
-    qrCode: {
-        // 背景色
-        bg: 'ffffff',
-        // 前景色
-        fg: '000000',
-        // 渐变
-        gc: '000000',
-        // 定位点外框颜色
-        pt: '000000',
-        // 定位点内容颜色
-        ipt: '000000',
-        // 纠错等级：h/q/m/l
-        el: 'm',
-        // 内容尺寸
-        w: 400,
-        // 边框尺寸
-        m: 0,
-        // logo
-        logo: ''
-    }
+    maxDescLength: 0
 };
 
 var SocialShare = Events.extend({
@@ -116,7 +95,7 @@ var SocialShare = Events.extend({
     weixin: function () {
         var options = this[_guessOptions]();
 
-        return QR_CODE_URL + qs.stringify(options.qrCode);
+        return url.qrcode(options.link);
     },
 
 
@@ -165,9 +144,7 @@ pro[_guessOptions] = function () {
     if (options.maxDescLength > 0) {
         options.desc = options.desc.slice(0, options.maxDescLength);
     }
-
-    options.qrCode.text = options.link;
-
+    
     return options;
 };
 
